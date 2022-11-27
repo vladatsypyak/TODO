@@ -76,13 +76,15 @@ textarea {
     justify-content: space-between;
 }
 .status{
-    border-radius: 5px;
+    border:none;
+    background: none;
+    border-bottom: 1px solid #607e9c;
 }
 .open{
-    background-color: gold;
+    background-color: #d2e3e7;
 }
 .done{
-    background-color: green;
+    background-color: #abe2ab;
 }
 .progress{
     background-color: lightblue;
@@ -144,13 +146,14 @@ header{
     border-radius: 10px;
     padding: 10px;
     color:white;
+    background: none;
 }
 .save_modal_btn{
     background-color: #617f9c;
 
 }
 .delete_btn{
-    background-color: #fff;
+    background: none;
     border:none;
 }
 .delete_btn:hover{
