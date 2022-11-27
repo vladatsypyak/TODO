@@ -1,13 +1,183 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+h1, h2, p {
+    padding: 0;
+    margin: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+    background-color: #d1d8e2;
+    box-sizing: border-box;
+}
+
+.todo_title {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.todo_item {
+    padding: 15px;
+    max-width: 650px;
+    background-color: #fff;
+    margin: 0 auto 15px;
+    border-radius: 10px;
+
+}
+
+.desc_wrap {
+    text-align: center;
+    background-color: #ececed;
+    padding: 10px;
+    border-radius: 10px;
+    position: relative;
+    margin-bottom: 10px;
+    font-size: 18px;
+
+}
+
+.edit_wrap{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+}
+.edit_btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.description {
+    margin-bottom: 10px;
+
+}
+
+textarea {
+    display: block;
+    width: 250px;
+    border: 1px solid #d6d6f8;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 15px;
+
+}
+.save_btn{
+    background-color: #fff;
+    border: none;
+}
+.save_btn:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+.save_btn img{
+    width: 30px;
+    height: 30px;
+}
+.flex_wrap{
+    display:flex;
+    justify-content: space-between;
+}
+.status{
+    border-radius: 5px;
+}
+.open{
+    background-color: gold;
+}
+.done{
+    background-color: green;
+}
+.progress{
+    background-color: lightblue;
+}
+header{
+    display:flex;
+    margin:30px 0;
+    padding: 5px 40px;
+    justify-content: space-between;
+}
+.add_btn{
+    height: 50px;
+    padding: 10px;
+    border:none;
+    border-radius: 5px;
+    background-color: #617f9c;
+    color: white;
+}
+.add_btn:hover{
+    cursor:pointer;
+    background-color: #99c5cd;
+}
+.filters{
+    display:flex;
+    align-items: center;
+    justify-self: flex-end;
+}
+.cover{
+    position:absolute;
+    top:0;
+    right:0;
+    width: 100vw;
+    height:100%;
+    background-color: rgba(70, 69, 69, 0.56);
+    z-index: 2;
+}
+.modal_wrap{
+    padding: 20px;
+    position:absolute;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    z-index: 3;
+    left:calc(50% - 250px);
+    background-color: #fff;
+    border-radius: 10px;
+    gap:15px;
+
+}
+.modal_input{
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    background-color: #e5f3f7;
+}
+.save_btn{
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    color:white;
+}
+.save_modal_btn{
+    background-color: #617f9c;
+
+}
+.delete_btn{
+    background-color: #fff;
+    border:none;
+}
+.delete_btn:hover{
+    cursor:pointer;
+    opacity: 0.8;
+}
+.delete_btn img{
+    width: 30px;
+    height: 30px;
+}
+.edit_btn{
+    background:none;
+    border:none;
+}
+.edit_btn img{
+    width: 30px;
+    height: 30px;
+}
+.edit_btn:hover{
+    opacity: 0.8;
+    cursor:pointer;
+
+}
+.filter_select{
+    margin-right: 15px;
+    margin-left: 5px;
+    padding:6px;
+    border-radius: 5px;
+    border:none
 }
