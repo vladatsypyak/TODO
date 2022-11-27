@@ -90,7 +90,7 @@ function App(props) {
                    </select>
                </div>
             </header>
-            {showModal ? <Modal getData={createTodo}/> : null}
+            {showModal ? <Modal changeHandler={changeHandler} getData={createTodo}/> : null}
             <div className="todos">
                 {todoData.state ? todosData.map((el) => {
                     return <Todo

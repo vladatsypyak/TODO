@@ -10,6 +10,7 @@ function Modal(props) {
     function clickHandler() {
         console.log(title, desc)
         getData(title, desc)
+        props.changeHandler()
     }
 
     function titleValue(e) {
