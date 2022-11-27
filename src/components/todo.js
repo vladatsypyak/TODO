@@ -1,18 +1,16 @@
 import React from "react";
-import {useState} from "react";
+import {useState,useEffect} from "react";
 import todoData from "./data";
 
 function Todo(props) {
     const id = props.id
-    const [selected, setSelected] = useState("open")
-    const [description, setDesc] = useState(props.desc)
     const [editText, setEditText] = useState(props.desc)
-
     const [showEditArea, setShowEditArea] = useState(false)
 
     function handleChange(e) {
-        setSelected(e.target.value)
+
         changeStatus(e.target.value);
+        props.onChange()
     }
 
     function changeStatus(status) {
@@ -28,15 +26,13 @@ function Todo(props) {
     }
 
     function handleEditText(e) {
-        setDesc(e.target.value)
-
         setEditText(e.target.value)
     }
 
     function handleSaveClick() {
         todoData.editDescription(id, editText)
         setShowEditArea(false)
-        // setDesc(editText)
+        props.onChange()
 
     }
 
@@ -57,7 +53,7 @@ function Todo(props) {
                     alt=""/></button> : null}
             </div>
             <div className="flex_wrap"><p>{props.creationDate}</p>
-                <select className={"status"} onChange={handleChange} value={selected} name="status" id="status">
+                <select className={"status"} onChange={handleChange} value={props.status} name="status" id="status">
                     <option value="open">open</option>
                     <option value="inProgress">in progress</option>
                     <option value="done">done</option>

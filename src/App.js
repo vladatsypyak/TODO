@@ -1,5 +1,5 @@
 import React from "react";
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import Modal from "./components/modal";
 import todoData from "./components/data";
 import Todo from "./components/todo";
@@ -10,12 +10,16 @@ function App(props) {
 
     const [selectedStatus, setSelectedStatus] = useState("all")
     const [selectedDateFilter, setSelectedDateFilter] = useState("older")
-
+    useEffect(()=>{
+        console.log("+")
+    },[todosData])
 
     function clickHandler() {
         setModal(true)
     }
-
+    function changeHandler() {
+        setData([...todoData.state])
+    }
     function filterByStatus(status) {
         if (status === "all") {
             return todoData.state
@@ -35,11 +39,19 @@ function App(props) {
         }
     }
 
+
+
     function handleStatusFilter(e) {
         setSelectedStatus(e.target.value)
         setData(filterByStatus(e.target.value));
     }
-
+    function handleDateFilter(e) {
+        setSelectedDateFilter(e.target.value)
+        let filteredByStatus = filterByStatus(selectedStatus)
+        setData(filterByDate(e.target.value, filteredByStatus))
+        console.log(todosData)
+        console.log(todoData.state)
+    }
     function createTodo(title, description) {
         todoData.addData({
             id: Math.random(),
@@ -49,16 +61,10 @@ function App(props) {
             creationDate: new Date().toLocaleDateString(),
             updateDate: new Date().toLocaleDateString()
         })
-
         setModal(false)
     }
 
-    function handleDateFilter(e) {
-        setSelectedDateFilter(e.target.value)
-        let filteredByStatus = filterByStatus(selectedStatus)
-        console.log(todosData)
-        setData(filterByDate(e.target.value, filteredByStatus))
-    }
+
 
     function onDeleteClick(id) {
         todoData.deleteItem(id)
@@ -95,6 +101,7 @@ function App(props) {
                         creationDate={el.creationDate}
                         updateDate={el.updateDate}
                         onDeleteClick={() => onDeleteClick(el.id)}
+                        onChange={changeHandler}
                     />
                 }) : null}
             </div>
