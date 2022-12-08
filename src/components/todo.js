@@ -1,6 +1,8 @@
 import React from "react";
 import {useState} from "react";
-import todoData from "./data";
+import {store} from "../store";
+import {changeStatusInStore, changeDescription} from "../actions";
+
 
 function Todo(props) {
     const id = props.id
@@ -13,7 +15,9 @@ function Todo(props) {
     }
 
     function changeStatus(status) {
-        todoData.changeStatus(id, status)
+        console.log(status)
+        store.dispatch(changeStatusInStore(id, status))
+        console.log(store.getState())
     }
 
     function handleDeleteClick() {
@@ -29,16 +33,15 @@ function Todo(props) {
     }
 
     function handleSaveClick() {
-        todoData.editDescription(id, editText)
+        store.dispatch(changeDescription(id, editText))
         setShowEditArea(false)
         props.onChange()
-
     }
 
     return (
         <div className={
-           props.status === "done"? `todo_item done` :
-               props.status === "inProgress" ? `todo_item progress`: `todo_item open`
+            props.status === "done" ? `todo_item done` :
+                props.status === "inProgress" ? `todo_item progress` : `todo_item open`
         }>
             <h2 className="todo_title">{props.title}</h2>
             <div className="desc_wrap">
@@ -60,7 +63,8 @@ function Todo(props) {
                     <option value="inProgress">in progress</option>
                     <option value="done">done</option>
                 </select>
-                <button className="delete_btn" onClick={handleDeleteClick}><img src={require("../images/delete.png")} alt=""/></button>
+                <button className="delete_btn" onClick={handleDeleteClick}><img src={require("../images/delete.png")}
+                                                                                alt=""/></button>
             </div>
         </div>
     )

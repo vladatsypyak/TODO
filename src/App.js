@@ -1,12 +1,15 @@
 import React from "react";
 import {useState, useEffect} from 'react';
 import Modal from "./components/modal";
-import todoData from "./components/data";
 import Todo from "./components/todo";
+import {store} from "./store";
+import {
+    addTodo, deleteTodo
+} from "./actions";
 
 function App(props) {
     const [showModal, setModal] = useState(false)
-    const [todosData, setData] = useState(todoData.state)
+    const [todosData, setData] = useState(store.getState().todos)
 
     const [selectedStatus, setSelectedStatus] = useState("all")
     const [selectedDateFilter, setSelectedDateFilter] = useState("older")
@@ -14,22 +17,21 @@ function App(props) {
         console.log("+")
     },[todosData])
 
-    function clickHandler() {
+    function addClickHandler() {
         setModal(true)
     }
     function changeHandler() {
-        setData([...todoData.state])
+        setData([...store.getState().todos])
     }
     function filterByStatus(status) {
         if (status === "all") {
-            return todoData.state
+            return store.getState().todos
         }
-        return todoData.state.filter(el => el.status === status)
+        return store.getState().todos.filter(el => el.status === status)
 
     }
 
     function filterByDate(dateFilter, data) {
-
         if (dateFilter === "newer") {
             return data.sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime());
 
@@ -39,8 +41,6 @@ function App(props) {
         }
     }
 
-
-
     function handleStatusFilter(e) {
         setSelectedStatus(e.target.value)
         setData(filterByStatus(e.target.value));
@@ -49,32 +49,26 @@ function App(props) {
         setSelectedDateFilter(e.target.value)
         let filteredByStatus = filterByStatus(selectedStatus)
         setData(filterByDate(e.target.value, filteredByStatus))
-        console.log(todosData)
-        console.log(todoData.state)
+
     }
     function createTodo(title, description) {
-        todoData.addData({
-            id: Math.random(),
-            title,
-            description,
-            status: "open",
-            creationDate: new Date().toLocaleDateString(),
-            updateDate: new Date().toLocaleDateString()
-        })
+        store.dispatch(addTodo(title, description))
         setModal(false)
     }
 
 
 
     function onDeleteClick(id) {
-        todoData.deleteItem(id)
-        setData(todoData.state)
+        store.dispatch(deleteTodo(id))
+        setData(store.getState().todos)
     }
+
+
 
     return (
         <div>
             <header>
-                <button className={"add_btn"} onClick={clickHandler}>add new task</button>
+                <button className={"add_btn"} onClick={addClickHandler}>add new task</button>
                <div className="filters">
                    <p>status:</p>
                    <select className={"filter_select"} onChange={handleStatusFilter} value={selectedStatus} name="status" id="status">
@@ -92,7 +86,7 @@ function App(props) {
             </header>
             {showModal ? <Modal changeHandler={changeHandler} getData={createTodo}/> : null}
             <div className="todos">
-                {todoData.state ? todosData.map((el) => {
+                {todosData ? todosData.map((el) => {
                     return <Todo
                         id={el.id}
                         title={el.title}
